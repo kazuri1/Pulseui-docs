@@ -1,23 +1,56 @@
 "use client";
 
 import { useState } from "react";
-import { LeftDrawer, Alert, Grid, ComponentDisplay } from "pulseui-base";
+import { LeftDrawer, Grid } from "pulseui-base";
 import "pulseui-base/styles";
+import dynamic from "next/dynamic";
+
+const AlertDocs = dynamic(() => import("./documentation/AlertDocs"), {
+  ssr: false,
+});
+const AutocompleteDocs = dynamic(
+  () => import("./documentation/AutocompleteDocs"),
+  { ssr: false }
+);
+const ButtonDocs = dynamic(() => import("./documentation/ButtonDocs"), {
+  ssr: false,
+});
+const BadgeDocs = dynamic(() => import("./documentation/BadgeDocs"), {
+  ssr: false,
+});
+const CardDocs = dynamic(() => import("./documentation/CardDocs"), {
+  ssr: false,
+});
+const AvatarDocs = dynamic(() => import("./documentation/AvatarDocs"), {
+  ssr: false,
+});
+const TextDocs = dynamic(() => import("./documentation/TextDocs"), {
+  ssr: false,
+});
+const InputDocs = dynamic(() => import("./documentation/InputDocs"), {
+  ssr: false,
+});
+
+interface DrawerItem {
+  id: string;
+  label: string;
+  onClick?: () => void;
+}
+
+interface DrawerSection {
+  id: string;
+  title: string;
+  items?: DrawerItem[];
+}
 
 interface CustomLeftDrawerProps {
-  brandName?: string;
-  brandTitle?: string;
-  brandLogo?: any;
   width?: string;
   className?: string;
   isOpen?: boolean;
-  sections?: any[];
+  sections?: DrawerSection[];
 }
 
 export default function CustomLeftDrawer({
-  brandName,
-  brandTitle,
-  brandLogo,
   width = "280px",
   className,
   isOpen = true,
@@ -31,6 +64,20 @@ export default function CustomLeftDrawer({
   const handleComponentSelect = (componentId: string) => {
     if (componentId === "alert") {
       setSelectedComponent("alert");
+    } else if (componentId === "autocomplete") {
+      setSelectedComponent("autocomplete");
+    } else if (componentId === "button") {
+      setSelectedComponent("button");
+    } else if (componentId === "badge") {
+      setSelectedComponent("badge");
+    } else if (componentId === "card") {
+      setSelectedComponent("card");
+    } else if (componentId === "avatar") {
+      setSelectedComponent("avatar");
+    } else if (componentId === "text") {
+      setSelectedComponent("text");
+    } else if (componentId === "input") {
+      setSelectedComponent("input");
     } else {
       setSelectedComponent(null);
     }
@@ -39,21 +86,19 @@ export default function CustomLeftDrawer({
   // Enhanced sections with click handlers
   const enhancedSections = sections.map((section) => ({
     ...section,
-    items: section.items?.map((item: any) => ({
+    items: (section.items || []).map((item: DrawerItem) => ({
       ...item,
       onClick: () => handleComponentSelect(item.id),
     })),
   }));
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Top Navigation - Takes remaining top height */}
-      <div className="flex-shrink-0 h-16 bg-white border-b border-gray-200">
-        {/* Top navigation content can go here */}
-      </div>
-
+    <div
+      className="h-full flex flex-col pr-6"
+      style={{ paddingRight: "100px" }}
+    >
       {/* Main Content Area - Fills remaining height */}
-      <div className="flex-1">
+      <div className="flex-1" style={{ justifyContent: "space-around" }}>
         <Grid className="h-full">
           {/* Left Drawer */}
           <Grid.Col span={3}>
@@ -73,122 +118,26 @@ export default function CustomLeftDrawer({
                 <>
                   <button
                     onClick={() => setSelectedComponent(null)}
-                    className="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
+                    className="mb-8 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
                   >
                     ← Back to Docs
                   </button>
 
-                  {selectedComponent === "alert" && (
-                    <ComponentDisplay
-                      title="Alert Component"
-                      description="A flexible alert component for displaying important information to users with various visual variants and styles."
-                      componentName="Alert"
-                      packageName="pulseui-base"
-                      sourceUrl="https://github.com/pulseui/pulseui-base"
-                      docsUrl="/docs/components/alert"
-                    >
-                      <div className="space-y-6">
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Default Alert
-                          </h3>
-                          <Alert variant="info" title="Information">
-                            This is a default info alert with a title.
-                          </Alert>
-                        </div>
+                  {selectedComponent === "alert" && <AlertDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Success Alert
-                          </h3>
-                          <Alert variant="success" title="Success">
-                            Operation completed successfully!
-                          </Alert>
-                        </div>
+                  {selectedComponent === "autocomplete" && <AutocompleteDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Warning Alert
-                          </h3>
-                          <Alert variant="warning" title="Warning">
-                            Please review your input before proceeding.
-                          </Alert>
-                        </div>
+                  {selectedComponent === "button" && <ButtonDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Error Alert
-                          </h3>
-                          <Alert variant="error" title="Error">
-                            Something went wrong. Please try again.
-                          </Alert>
-                        </div>
+                  {selectedComponent === "badge" && <BadgeDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Closeable Alert
-                          </h3>
-                          <Alert
-                            variant="info"
-                            title="Closeable Alert"
-                            closeable={true}
-                            onClose={() => console.log("Alert closed")}
-                          >
-                            This alert can be closed by the user.
-                          </Alert>
-                        </div>
+                  {selectedComponent === "card" && <CardDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Different Sizes
-                          </h3>
-                          <div className="space-y-2">
-                            <Alert variant="info" size="xs">
-                              Extra small alert
-                            </Alert>
-                            <Alert variant="info" size="sm">
-                              Small alert
-                            </Alert>
-                            <Alert variant="info" size="md">
-                              Medium alert (default)
-                            </Alert>
-                            <Alert variant="info" size="lg">
-                              Large alert
-                            </Alert>
-                            <Alert variant="info" size="xl">
-                              Extra large alert
-                            </Alert>
-                          </div>
-                        </div>
+                  {selectedComponent === "avatar" && <AvatarDocs />}
 
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            Style Variants
-                          </h3>
-                          <div className="space-y-2">
-                            <Alert variant="info" styleVariant="default">
-                              Default style
-                            </Alert>
-                            <Alert variant="info" styleVariant="filled">
-                              Filled style
-                            </Alert>
-                            <Alert variant="info" styleVariant="light">
-                              Light style
-                            </Alert>
-                            <Alert variant="info" styleVariant="outline">
-                              Outline style
-                            </Alert>
-                            <Alert variant="info" styleVariant="transparent">
-                              Transparent style
-                            </Alert>
-                            <Alert variant="info" styleVariant="white">
-                              White style
-                            </Alert>
-                          </div>
-                        </div>
-                      </div>
-                    </ComponentDisplay>
-                  )}
+                  {selectedComponent === "text" && <TextDocs />}
+
+                  {selectedComponent === "input" && <InputDocs />}
                 </>
               ) : (
                 <div>
