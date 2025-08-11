@@ -7,7 +7,7 @@ import ComponentDisplay from "./ComponentDisplay";
 interface DrawerSection {
   id: string;
   title: string;
-  items?: any[];
+  items?: never[];
 }
 
 interface CustomLeftDrawerProps {

@@ -1,59 +1,106 @@
+"use client";
+
+import { Button, Text, ProfileCard } from "pulseui-base";
+import "pulseui-base/styles";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-8 px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Welcome to Pulse UI Base
-          </h1>
-          <p className="text-xl text-gray-600">
-            Your documentation hub built with Next.js, React 19, and Tailwind
-            CSS
-          </p>
-        </div>
+    <main
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "white",
+        paddingTop: "6rem",
+        paddingLeft: "2rem",
+        paddingRight: "2rem",
+      }}
+    >
+      {/* Hero Section */}
+      <div
+        style={{
+          maxWidth: "64rem",
+          margin: "0 auto",
+          textAlign: "center",
+          marginBottom: "4rem",
+        }}
+      >
+        {/* Top Branding/Tagline */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
+            marginBottom: "2rem",
+          }}
+        ></div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              🚀 Getting Started
-            </h2>
-            <p className="text-gray-600 mb-4">
-              This is a modern documentation website built with the latest web
-              technologies.
-            </p>
-            <ul className="text-sm text-gray-600 space-y-2">
-              <li>• Next.js 15 with App Router</li>
-              <li>• React 19 with modern features</li>
-              <li>• Tailwind CSS 4 for styling</li>
-              <li>• TypeScript for type safety</li>
-            </ul>
-          </div>
+        {/* Main Headline */}
+        <Text
+          variant="xxl"
+          weight="bold"
+          style={{
+            fontSize: "3.5rem",
+            color: "#111827",
+            marginBottom: "2rem",
+            lineHeight: "1.1",
+          }}
+        >
+          Design Systems That Scale With Your Brand
+        </Text>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              📚 Documentation
-            </h2>
-            <p className="text-gray-600 mb-4">
-              Start building your documentation by adding new pages and
-              components.
-            </p>
-            <div className="space-y-2 text-sm text-gray-600">
-              <p>
-                • Create new pages in the{" "}
-                <code className="bg-gray-100 px-2 py-1 rounded">app</code>{" "}
-                directory
-              </p>
-              <p>
-                • Add components in a{" "}
-                <code className="bg-gray-100 px-2 py-1 rounded">
-                  components
-                </code>{" "}
-                folder
-              </p>
-              <p>• Use Tailwind CSS for styling</p>
-            </div>
-          </div>
+        {/* Descriptive Subheadline */}
+        <Text
+          variant="lg"
+          style={{
+            color: "#374151",
+            marginBottom: "3rem",
+            maxWidth: "48rem",
+            marginLeft: "auto",
+            marginRight: "auto",
+            lineHeight: "1.6",
+          }}
+        >
+          An open-source, token-first design system for building multi-brand,
+          responsive, accessible UIs — faster than ever.
+        </Text>
+
+        {/* CTA Buttons */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1rem",
+            justifyContent: "center",
+            marginBottom: "4rem",
+          }}
+        >
+          <Button variant="filled" size="sm">
+            Explore Components
+          </Button>
+          <Button variant="outline" size="sm">
+            Get Started
+          </Button>
         </div>
+      </div>
+
+      {/* Profile Card Section */}
+      <div
+        style={{
+          maxWidth: "64rem",
+          margin: "0 auto",
+          textAlign: "center",
+          paddingTop: "2rem",
+        }}
+      >
+        <ProfileCard
+          name="Vignesh Vishnumoorthy"
+          email="vignesh@example.com"
+          bio="Design System Architect and UI/UX Specialist with expertise in creating scalable, accessible design systems"
+          hashtag="#designsystems"
+          posts={156}
+          followers={892}
+          following={234}
+        />
       </div>
     </main>
   );

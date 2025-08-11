@@ -21,15 +21,13 @@ import {
   Drawer,
   Modal,
   Stepper,
-  StepperItem,
   Calendar,
-  TableOfContents,
-  SingleTab,
   Icon,
   PinInput,
   ActionButton,
   Stack,
   Textarea,
+  Checkbox,
 } from "pulseui-base";
 import "pulseui-base/styles";
 import { useState } from "react";
@@ -43,6 +41,7 @@ export default function ComponentDisplay() {
   const [modalOpen, setModalOpen] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [pinValue, setPinValue] = useState("");
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -93,12 +92,13 @@ export default function ComponentDisplay() {
         </GridCol>
 
         <GridCol span={4}>
-          <ComponentBox title="Text" size="md" variant="surface">
+          <ComponentBox title="Checkbox" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
-              <Text weight="bold" color="primary">
-                Bold Primary Text
-              </Text>
-              <Text>Regular text example</Text>
+              <Checkbox
+                checked={checkboxValue}
+                onChange={() => setCheckboxValue(!checkboxValue)}
+                label="Checkbox Example"
+              />
             </div>
           </ComponentBox>
         </GridCol>

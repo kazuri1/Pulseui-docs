@@ -6,6 +6,7 @@ import "pulseui-base/styles";
 
 export default function Navigation() {
   const navItems = [
+    { id: "home", label: "Home", href: "/" },
     { id: "docs", label: "Docs", href: "/docs" },
     // Social media items
     {
