@@ -1,46 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { LeftDrawer, Grid } from "pulseui-base";
 import "pulseui-base/styles";
-import dynamic from "next/dynamic";
-
-const AlertDocs = dynamic(() => import("./documentation/AlertDocs"), {
-  ssr: false,
-});
-const AutocompleteDocs = dynamic(
-  () => import("./documentation/AutocompleteDocs"),
-  { ssr: false }
-);
-const ButtonDocs = dynamic(() => import("./documentation/ButtonDocs"), {
-  ssr: false,
-});
-const BadgeDocs = dynamic(() => import("./documentation/BadgeDocs"), {
-  ssr: false,
-});
-const CardDocs = dynamic(() => import("./documentation/CardDocs"), {
-  ssr: false,
-});
-const AvatarDocs = dynamic(() => import("./documentation/AvatarDocs"), {
-  ssr: false,
-});
-const TextDocs = dynamic(() => import("./documentation/TextDocs"), {
-  ssr: false,
-});
-const InputDocs = dynamic(() => import("./documentation/InputDocs"), {
-  ssr: false,
-});
-
-interface DrawerItem {
-  id: string;
-  label: string;
-  onClick?: () => void;
-}
+import ComponentDisplay from "./ComponentDisplay";
 
 interface DrawerSection {
   id: string;
   title: string;
-  items?: DrawerItem[];
+  items?: any[];
 }
 
 interface CustomLeftDrawerProps {
@@ -56,40 +23,10 @@ export default function CustomLeftDrawer({
   isOpen = true,
   sections = [],
 }: CustomLeftDrawerProps) {
-  const [selectedComponent, setSelectedComponent] = useState<string | null>(
-    null
-  );
-
-  // Handle component selection from drawer items
-  const handleComponentSelect = (componentId: string) => {
-    if (componentId === "alert") {
-      setSelectedComponent("alert");
-    } else if (componentId === "autocomplete") {
-      setSelectedComponent("autocomplete");
-    } else if (componentId === "button") {
-      setSelectedComponent("button");
-    } else if (componentId === "badge") {
-      setSelectedComponent("badge");
-    } else if (componentId === "card") {
-      setSelectedComponent("card");
-    } else if (componentId === "avatar") {
-      setSelectedComponent("avatar");
-    } else if (componentId === "text") {
-      setSelectedComponent("text");
-    } else if (componentId === "input") {
-      setSelectedComponent("input");
-    } else {
-      setSelectedComponent(null);
-    }
-  };
-
-  // Enhanced sections with click handlers
+  // Enhanced sections
   const enhancedSections = sections.map((section) => ({
     ...section,
-    items: (section.items || []).map((item: DrawerItem) => ({
-      ...item,
-      onClick: () => handleComponentSelect(item.id),
-    })),
+    items: section.items || [],
   }));
 
   return (
@@ -106,50 +43,21 @@ export default function CustomLeftDrawer({
               isOpen={isOpen}
               onClose={() => {}} // Disable close functionality
               width={width}
-              className={`${className || ""} !border-t-0`}
+              className={`${className || ""} border-t-0`}
               sections={enhancedSections}
             />
           </Grid.Col>
 
           {/* Component Display Area - Right Side */}
           <Grid.Col span={9}>
-            <div className="pt-8 pb-8 px-8">
-              {selectedComponent ? (
-                <>
-                  <button
-                    onClick={() => setSelectedComponent(null)}
-                    className="mb-8 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
-                  >
-                    ← Back to Docs
-                  </button>
+            <div style={{ marginTop: "100px", marginBottom: "100px" }}>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-6">
+                  All Components
+                </h1>
 
-                  {selectedComponent === "alert" && <AlertDocs />}
-
-                  {selectedComponent === "autocomplete" && <AutocompleteDocs />}
-
-                  {selectedComponent === "button" && <ButtonDocs />}
-
-                  {selectedComponent === "badge" && <BadgeDocs />}
-
-                  {selectedComponent === "card" && <CardDocs />}
-
-                  {selectedComponent === "avatar" && <AvatarDocs />}
-
-                  {selectedComponent === "text" && <TextDocs />}
-
-                  {selectedComponent === "input" && <InputDocs />}
-                </>
-              ) : (
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">
-                    Component Library
-                  </h1>
-                  <p className="text-lg text-gray-600">
-                    Select a component from the left drawer to view its
-                    documentation and examples.
-                  </p>
-                </div>
-              )}
+                <ComponentDisplay />
+              </div>
             </div>
           </Grid.Col>
         </Grid>

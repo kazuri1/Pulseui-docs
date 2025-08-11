@@ -4,42 +4,9 @@ import CustomLeftDrawer from "../../components/CustomLeftDrawer";
 
 const componentSections = [
   {
-    id: "components",
-    title: "Components",
-    items: [
-      {
-        id: "alert",
-        label: "Alert",
-      },
-      {
-        id: "autocomplete",
-        label: "Autocomplete",
-      },
-      {
-        id: "button",
-        label: "Button",
-      },
-      {
-        id: "badge",
-        label: "Badge",
-      },
-      {
-        id: "card",
-        label: "Card",
-      },
-      {
-        id: "avatar",
-        label: "Avatar",
-      },
-      {
-        id: "text",
-        label: "Text",
-      },
-      {
-        id: "input",
-        label: "Input",
-      },
-    ],
+    id: "all-components",
+    title: "All Components",
+    items: [],
   },
 ];
 
