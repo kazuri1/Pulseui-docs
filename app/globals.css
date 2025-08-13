@@ -1,13 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Reset default browser padding and margins */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  top: 0;
+}
 
-/* Basic page styles */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Ensure no top spacing on the body */
+body {
+  margin-top: 0;
+  padding-top: 0;
 }

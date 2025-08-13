@@ -1,10 +1,12 @@
 "use client";
 
-import { SimpleTopNav } from "pulseui-base";
+import { SimpleTopNav, useBreakpoint } from "pulseui-base";
 import { Palette, GitHub, LibraryBooks } from "@mui/icons-material";
 import "pulseui-base/styles";
 
 export default function Navigation() {
+  const breakpoint = useBreakpoint();
+
   const navItems = [
     { id: "home", label: "Home", href: "/" },
     { id: "docs", label: "Docs", href: "/docs" },
@@ -30,15 +32,34 @@ export default function Navigation() {
   ];
 
   return (
-    <div className="bg-black text-white fixed top-0 left-0 right-0 z-[9999] w-full">
+    <div
+      style={{
+        backgroundColor: "black",
+        color: "white",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 999999,
+        width: "100%",
+        maxWidth: "100vw",
+      }}
+    >
       <SimpleTopNav
         brandName="Pulse UI Base"
-        brandTitle="Documentation & Examples"
+        brandTitle={breakpoint.isMobile ? "" : "Documentation & Examples"}
         items={navItems}
         showBrand={true}
         showNavigation={true}
         defaultMobileMenuOpen={false}
         className="bg-black text-white w-full"
+        style={{
+          marginTop: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+          width: "100%",
+          maxWidth: "100vw",
+        }}
       />
     </div>
   );

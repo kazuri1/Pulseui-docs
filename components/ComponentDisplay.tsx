@@ -28,12 +28,15 @@ import {
   Stack,
   Textarea,
   Checkbox,
+  useBreakpoint,
 } from "pulseui-base";
 import "pulseui-base/styles";
 import { useState } from "react";
 import { InfoOutlined, CheckCircle, Warning, ErrorOutline } from "pulseui-base";
+import { useEffect } from "react";
 
 export default function ComponentDisplay() {
+  const breakpoint = useBreakpoint();
   const [switchValue, setSwitchValue] = useState(false);
   const [radioValue, setRadioValue] = useState("option1");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -42,6 +45,32 @@ export default function ComponentDisplay() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [pinValue, setPinValue] = useState("");
   const [checkboxValue, setCheckboxValue] = useState(false);
+  const [columnSpan, setColumnSpan] = useState(4);
+
+  // Determine column span based on screen size
+  const getColumnSpan = () => {
+    if (breakpoint.isMobile) {
+      return 12; // 1 component per row on mobile
+    } else if (window.innerWidth <= 1241) {
+      return 6; // 2 components per row on smaller desktop
+    } else {
+      return 4; // 3 components per row on large desktop
+    }
+  };
+
+  // Update column span when breakpoint or window size changes
+  useEffect(() => {
+    const updateColumnSpan = () => {
+      setColumnSpan(getColumnSpan());
+    };
+
+    updateColumnSpan();
+    window.addEventListener("resize", updateColumnSpan);
+
+    return () => {
+      window.removeEventListener("resize", updateColumnSpan);
+    };
+  }, [breakpoint.isMobile]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -53,8 +82,20 @@ export default function ComponentDisplay() {
         22+ responsive components for every screen and style
       </Text>
 
-      <Grid>
-        <GridCol span={4}>
+      <Grid
+        style={{
+          justifyContent: breakpoint.isMobile ? "center" : "flex-start",
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Alert" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Alert variant="info" title="Info">
@@ -64,7 +105,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Button" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Button variant="filled">Click me</Button>
@@ -72,7 +119,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Badge" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Badge variant="dot">Success</Badge>
@@ -80,7 +133,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Card" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Card>
@@ -91,7 +150,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Checkbox" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Checkbox
@@ -103,7 +168,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Input" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Input placeholder="Enter text here" />
@@ -111,7 +182,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Avatar" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Avatar src="/avatar.jpg" alt="User" />
@@ -119,7 +196,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Switch" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Switch
@@ -130,7 +213,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Radio" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Radio
@@ -143,7 +232,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Tabs" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Tabs defaultValue="tab1">
@@ -158,7 +253,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Pagination" size="md" variant="surface">
             <div style={{ padding: "2rem", overflow: "hidden" }}>
               <Pagination
@@ -170,7 +271,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Drawer" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Button onClick={() => setDrawerOpen(true)}>Open Drawer</Button>
@@ -178,7 +285,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Modal" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
@@ -186,7 +299,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Stepper" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Stepper
@@ -206,7 +325,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Calendar" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Button onClick={() => setCalendarOpen(true)}>
@@ -216,7 +341,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Pin Input" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <PinInput value={pinValue} onChange={setPinValue} length={4} />
@@ -224,7 +355,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Action Button" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <ActionButton icon={CheckCircle} variant="filled" size="md" />
@@ -232,7 +369,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Icons" size="md" variant="surface">
             <div
               style={{
@@ -250,7 +393,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Stack" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Stack gap="xs">
@@ -268,7 +417,13 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol
+          span={columnSpan}
+          style={{
+            marginBottom: breakpoint.isMobile ? "1rem" : "2rem",
+            marginRight: breakpoint.isMobile ? "0" : "1.5rem",
+          }}
+        >
           <ComponentBox title="Grid Example" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Grid>
@@ -301,7 +456,7 @@ export default function ComponentDisplay() {
           </ComponentBox>
         </GridCol>
 
-        <GridCol span={4}>
+        <GridCol span={columnSpan}>
           <ComponentBox title="Textarea" size="md" variant="surface">
             <div style={{ padding: "1rem" }}>
               <Textarea placeholder="Enter your message here..." rows={3} />
